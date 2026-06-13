@@ -5,30 +5,58 @@
   --font-heading: 'Satoshi', system-ui, sans-serif;
   --font-body: 'General Sans', system-ui, sans-serif;
   --animate-ticker: ticker 28s linear infinite;
+  --animate-float-a: float-a 10s ease-in-out infinite;
+  --animate-float-b: float-b 14s ease-in-out infinite;
+  --animate-float-c: float-c 18s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 4s ease-in-out infinite;
 }
 
+/* ─── Hero orb keyframes ─── */
+@keyframes float-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(40px, -60px) scale(1.12); }
+  66%       { transform: translate(-30px, 30px) scale(0.92); }
+}
+@keyframes float-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(-50px, 40px) scale(1.08); }
+  66%       { transform: translate(60px, -30px) scale(0.95); }
+}
+@keyframes float-c {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(20px, -40px) scale(1.15); }
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 0.7; }
+}
+
+/* ─── Ticker ─── */
 @keyframes ticker {
-  0% { transform: translateX(0); }
+  0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
-html {
-  scroll-behavior: smooth;
-}
+/* ─── Base ─── */
+html { scroll-behavior: smooth; }
 
 body {
-  background-color: #FAFAF9;
-  color: #0C0A09;
+  background-color: #080808;
+  color: #F2F2F2;
   font-family: 'General Sans', system-ui, sans-serif;
 }
 
 ::selection {
-  background-color: #FEF3C7;
-  color: #78350F;
+  background-color: rgba(202, 138, 4, 0.35);
+  color: #FEF3C7;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-ticker {
+  .animate-ticker,
+  .animate-float-a,
+  .animate-float-b,
+  .animate-float-c,
+  .animate-pulse-glow {
     animation: none;
   }
 }

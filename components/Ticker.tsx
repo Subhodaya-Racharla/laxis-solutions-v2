@@ -1,5 +1,7 @@
 "use client";
 
+import { motion } from "motion/react";
+
 const ITEMS = [
   "Web Design",
   "E-Commerce",
@@ -17,17 +19,20 @@ export default function Ticker() {
   const doubled = [...ITEMS, ...ITEMS];
 
   return (
-    <section className="bg-stone-900 py-5 overflow-hidden border-y border-stone-800">
+    <motion.section
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      className="overflow-hidden border-y border-zinc-800 bg-zinc-950 py-5"
+    >
       <div
         className="flex gap-10 w-max"
         style={{ animation: "ticker 28s linear infinite" }}
       >
         {doubled.map((item, i) => (
-          <div
-            key={i}
-            className="flex items-center gap-10 whitespace-nowrap"
-          >
-            <span className="text-stone-100 font-heading font-medium text-sm tracking-wide uppercase">
+          <div key={i} className="flex items-center gap-10 whitespace-nowrap">
+            <span className="text-zinc-300 font-heading font-medium text-sm tracking-widest uppercase">
               {item}
             </span>
             <span
@@ -37,6 +42,6 @@ export default function Ticker() {
           </div>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 }

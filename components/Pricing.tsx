@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Check } from "lucide-react";
 
 const WA_LINK =
@@ -58,24 +58,25 @@ const PLANS = [
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="py-24 bg-stone-50">
+    <section id="pricing" className="py-24 bg-zinc-950">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
+
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, ease: [0, 0, 0.2, 1] }}
-          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: [0.25, 0, 0, 1] }}
+          viewport={{ once: true, margin: "-60px" }}
           className="text-center mb-14"
         >
           <span
             className="inline-block text-xs font-body font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-4 border"
-            style={{ color: "#CA8A04", borderColor: "#FEF3C7", backgroundColor: "#FEFCE8" }}
+            style={{ color: "#CA8A04", borderColor: "rgba(202,138,4,0.3)", backgroundColor: "rgba(202,138,4,0.07)" }}
           >
             Pricing
           </span>
           <h2
-            className="font-heading font-black text-stone-950 leading-tight"
+            className="font-heading font-black text-white leading-tight"
             style={{ fontSize: "clamp(28px, 4.5vw, 52px)" }}
           >
             Transparent Pricing,
@@ -89,57 +90,48 @@ export default function Pricing() {
           {PLANS.map((plan, i) => (
             <motion.div
               key={plan.name}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 32 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.45,
-                delay: i * 0.1,
-                ease: [0, 0, 0.2, 1],
-              }}
-              viewport={{ once: true }}
-              className={`relative rounded-2xl p-8 flex flex-col border transition-all duration-150 ${
+              transition={{ duration: 0.5, delay: i * 0.1, ease: [0.25, 0, 0, 1] }}
+              viewport={{ once: true, margin: "-60px" }}
+              className={`relative rounded-2xl p-8 flex flex-col border transition-all duration-200 ${
                 plan.highlight
-                  ? "border-[#CA8A04] bg-white"
-                  : "border-stone-200 bg-white hover:border-stone-300"
+                  ? "border-[#CA8A04] bg-zinc-900"
+                  : "border-zinc-800 bg-zinc-900 hover:border-zinc-700"
               }`}
+              style={plan.highlight ? { boxShadow: "0 0 40px rgba(202,138,4,0.12)" } : undefined}
             >
               {plan.highlight && (
-                <div
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: 0.3 }}
+                  viewport={{ once: true }}
                   className="absolute -top-3.5 left-1/2 -translate-x-1/2 text-white text-xs font-body font-semibold px-4 py-1 rounded-full whitespace-nowrap"
                   style={{ backgroundColor: "#CA8A04" }}
                 >
                   Most Popular
-                </div>
+                </motion.div>
               )}
 
               <div className="mb-6">
-                <div className="font-heading font-bold text-stone-950 text-lg mb-1">
-                  {plan.name}
-                </div>
+                <div className="font-heading font-bold text-zinc-300 text-lg mb-1">{plan.name}</div>
                 <div
                   className="font-heading font-black text-4xl mb-1"
-                  style={{ color: plan.highlight ? "#CA8A04" : "#0C0A09" }}
+                  style={{ color: plan.highlight ? "#CA8A04" : "#F2F2F2" }}
                 >
                   {plan.price}
                 </div>
-                <div className="text-stone-400 font-body text-sm">
-                  Delivered in {plan.duration}
-                </div>
+                <div className="text-zinc-600 font-body text-sm">Delivered in {plan.duration}</div>
               </div>
 
-              <p className="font-body text-stone-500 text-sm mb-6 leading-relaxed">
-                {plan.desc}
-              </p>
+              <p className="font-body text-zinc-500 text-sm mb-6 leading-relaxed">{plan.desc}</p>
 
               <ul className="space-y-3 mb-8 flex-1">
                 {plan.features.map((f) => (
                   <li key={f} className="flex items-start gap-2.5">
-                    <Check
-                      size={15}
-                      className="mt-0.5 flex-shrink-0"
-                      style={{ color: "#CA8A04" }}
-                    />
-                    <span className="font-body text-sm text-stone-700">{f}</span>
+                    <Check size={15} className="mt-0.5 flex-shrink-0" style={{ color: "#CA8A04" }} />
+                    <span className="font-body text-sm text-zinc-400">{f}</span>
                   </li>
                 ))}
               </ul>
@@ -151,22 +143,16 @@ export default function Pricing() {
                 className={`block text-center py-3 rounded-xl text-sm font-body font-semibold transition-all duration-150 cursor-pointer ${
                   plan.highlight
                     ? "text-white"
-                    : "text-stone-950 bg-stone-100 hover:bg-stone-200"
+                    : "text-zinc-300 bg-zinc-800 hover:bg-zinc-700"
                 }`}
-                style={
-                  plan.highlight
-                    ? { backgroundColor: "#CA8A04" }
-                    : undefined
-                }
+                style={plan.highlight ? { backgroundColor: "#CA8A04" } : undefined}
                 onMouseEnter={(e) => {
                   if (plan.highlight)
-                    (e.currentTarget as HTMLElement).style.backgroundColor =
-                      "#A16207";
+                    (e.currentTarget as HTMLElement).style.backgroundColor = "#A16207";
                 }}
                 onMouseLeave={(e) => {
                   if (plan.highlight)
-                    (e.currentTarget as HTMLElement).style.backgroundColor =
-                      "#CA8A04";
+                    (e.currentTarget as HTMLElement).style.backgroundColor = "#CA8A04";
                 }}
               >
                 Get Started
@@ -178,16 +164,16 @@ export default function Pricing() {
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.45, delay: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.35 }}
           viewport={{ once: true }}
-          className="text-center text-stone-400 font-body text-sm mt-10"
+          className="text-center text-zinc-600 font-body text-sm mt-10"
         >
-          All prices include GST. Custom packages available — {" "}
+          All prices include GST. Custom packages available —{" "}
           <a
             href={WA_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline underline-offset-2 hover:text-stone-600 transition-colors duration-150 cursor-pointer"
+            className="underline underline-offset-2 hover:text-zinc-400 transition-colors duration-150 cursor-pointer"
           >
             chat with us
           </a>

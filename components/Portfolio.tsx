@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 
 const PROJECTS = [
@@ -48,22 +48,33 @@ const PROJECTS = [
   },
 ];
 
+const containerVariants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.07 } },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 24, scale: 0.97 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.45, ease: "easeOut" as const } },
+};
+
 export default function Portfolio() {
   return (
-    <section id="portfolio" className="py-24 bg-stone-900">
+    <section id="portfolio" className="py-24 bg-[#080808]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
+
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, ease: [0, 0, 0.2, 1] }}
-          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: [0.25, 0, 0, 1] }}
+          viewport={{ once: true, margin: "-60px" }}
           className="mb-14 flex flex-col md:flex-row md:items-end md:justify-between gap-6"
         >
           <div>
             <span
               className="inline-block text-xs font-body font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-4 border"
-              style={{ color: "#FDE68A", borderColor: "#78350F", backgroundColor: "#292524" }}
+              style={{ color: "#CA8A04", borderColor: "rgba(202,138,4,0.3)", backgroundColor: "rgba(202,138,4,0.07)" }}
             >
               Portfolio
             </span>
@@ -76,48 +87,40 @@ export default function Portfolio() {
               Speaks Results
             </h2>
           </div>
-          <p className="text-stone-400 font-body text-sm max-w-xs leading-relaxed">
-            Real projects, real outcomes. Every site we build is designed to
-            generate measurable business results.
+          <p className="text-zinc-500 font-body text-sm max-w-xs leading-relaxed">
+            Real projects, real outcomes. Every site we build is designed to generate
+            measurable business results.
           </p>
         </motion.div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {PROJECTS.map((p, i) => (
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-60px" }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+        >
+          {PROJECTS.map((p) => (
             <motion.div
               key={p.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.4,
-                delay: i * 0.06,
-                ease: [0, 0, 0.2, 1],
-              }}
-              viewport={{ once: true }}
-              className="group bg-stone-800 hover:bg-stone-700 border border-stone-700 rounded-2xl p-6 transition-colors duration-150 cursor-default"
+              variants={cardVariants}
+              className="group bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 rounded-2xl p-6 transition-all duration-200 cursor-default"
             >
-              {/* Category + icon */}
               <div className="flex items-center justify-between mb-4">
-                <span className="text-xs font-body font-medium text-stone-400 uppercase tracking-wider">
+                <span className="text-xs font-body font-medium text-zinc-500 uppercase tracking-wider">
                   {p.category}
                 </span>
                 <ArrowUpRight
-                  size={16}
-                  className="text-stone-600 group-hover:text-stone-300 transition-colors duration-150"
+                  size={15}
+                  className="text-zinc-700 group-hover:text-zinc-400 transition-colors duration-150"
                 />
               </div>
 
-              {/* Color strip */}
-              <div
-                className="w-8 h-1 rounded-full mb-4"
-                style={{ backgroundColor: p.color }}
-              />
+              <div className="w-8 h-1 rounded-full mb-4" style={{ backgroundColor: p.color }} />
 
-              <h3 className="font-heading font-bold text-white text-xl mb-2">
-                {p.title}
-              </h3>
-              <p className="font-body text-sm text-stone-400 mb-5">
+              <h3 className="font-heading font-bold text-white text-xl mb-2">{p.title}</h3>
+              <p className="font-body text-sm text-zinc-500 group-hover:text-zinc-400 transition-colors duration-200 mb-5">
                 {p.outcome}
               </p>
 
@@ -125,7 +128,7 @@ export default function Portfolio() {
                 {p.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-xs font-body text-stone-500 bg-stone-900 px-2.5 py-1 rounded-md"
+                    className="text-xs font-body text-zinc-600 bg-zinc-950 border border-zinc-800 px-2.5 py-1 rounded-md"
                   >
                     {tag}
                   </span>
@@ -133,7 +136,7 @@ export default function Portfolio() {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
